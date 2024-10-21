@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:37:18 by lpittet           #+#    #+#             */
-/*   Updated: 2024/10/21 14:40:42 by lpittet          ###   ########.fr       */
+/*   Updated: 2024/10/21 14:46:12 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4
