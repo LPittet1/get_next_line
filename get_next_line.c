@@ -6,38 +6,32 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 09:57:48 by lpittet           #+#    #+#             */
-/*   Updated: 2024/10/18 16:11:01 by lpittet          ###   ########.fr       */
+/*   Updated: 2024/10/21 14:31:00 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_line(int fd, char *stash)
+static	char	*read_line(int fd, char *stash)
 {
 	char	*buf;
 	ssize_t	bytes_read;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
-		return (buf);
+		return (NULL);
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			free(buf);
 			free(stash);
+			free(buf);
 			return (NULL);
 		}
 		buf[bytes_read] = '\0';
 		stash = ft_strjoin(stash, buf);
-		if (!stash)
-		{
-			free(stash);
-			free(buf);
-			return (NULL);
-		}
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
@@ -45,7 +39,7 @@ char	*read_line(int fd, char *stash)
 	return (stash);
 }
 
-char	*extract_line(char *s)
+static	char	*extract_line(char *s)
 {
 	int		i;
 	char	*line;
@@ -61,7 +55,7 @@ char	*extract_line(char *s)
 	return (line);
 }
 
-char	*refresh_stash(char *s)
+static	char	*refresh_stash(char *s)
 {
 	int		i;
 	char	*stash;
@@ -73,7 +67,15 @@ char	*refresh_stash(char *s)
 			break ;
 		i++;
 	}
-	stash = ft_substr(s, i + 1, ft_strlen(s));
+	if (s)
+		stash = ft_substr(s, i + 1, ft_strlen(s));
+	else
+	{
+		stash = malloc(sizeof(char));
+		if (!stash)
+			return (NULL);
+		stash[0] = '\0';
+	}
 	free(s);
 	return (stash);
 }

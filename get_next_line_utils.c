@@ -6,15 +6,15 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 09:57:51 by lpittet           #+#    #+#             */
-/*   Updated: 2024/10/18 16:09:32 by lpittet          ###   ########.fr       */
+/*   Updated: 2024/10/21 14:16:40 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -35,7 +35,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t n)
+static size_t	ft_strlcat(char *dst, const char *src, size_t n)
 {
 	size_t	i;
 	size_t	j;
@@ -68,6 +68,8 @@ char	*ft_strjoin(char *s1, char const *s2)
 	if (!s1)
 	{
 		s1 = malloc(sizeof(char));
+		if (s1 == NULL)
+			return (NULL);
 		s1[0] = '\0';
 	}
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
@@ -83,11 +85,11 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*sub;
-	size_t			i;
+	char	*sub;
+	size_t	i;
 
 	i = 0;
-	if (!s)
+	if (!s || start >= ft_strlen(s))
 		return (NULL);
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;

@@ -6,11 +6,14 @@ int main()
 {
 	char *path;
 	char *line;
+	int i = 0;
 
 	path = "test.txt";
 	int fd = open(path, O_RDONLY);
-	line = get_next_line(fd);
-	printf("first line : %s", line);
-	// line = get_next_line(fd);
-	// printf("second line : %s", line);
+	while (i < 8)
+	{
+		line = get_next_line(fd);
+		printf("line %i: %s", i +1, line);
+		i++;
+	}
 }
